@@ -1,6 +1,15 @@
 <?xml version="1.0" ?>
-<robot name="My robot">
+<robot name="jetbot">
     <webots>
+        <device reference="LDS-01" type="Lidar">
+            <ros>
+                <enabled>true</enabled>
+                <updateRate>10</updateRate>
+                <topicName>/scan</topicName>
+                <alwaysOn>false</alwaysOn>
+                <frameName>LDS-01</frameName>
+            </ros>
+        </device>
         <plugin type="my_jetbot_ros.jetbot_driver.MyRobotDriver" />
     </webots>
 </robot>
