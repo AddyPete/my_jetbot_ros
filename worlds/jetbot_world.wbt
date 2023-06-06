@@ -32,8 +32,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.10168193141090216 0.01825216194420027 0.9946495078211778 2.788231818102314
-  position 0.8151151977791269 -0.2520770548730709 0.16037236901915994
+  orientation 0.03366824572782599 -0.5942872882160153 -0.8035478008771261 6.142410715220471
+  position -0.6699144675886035 -0.177511950548014 0.1066956079469078
 }
 TexturedBackground {
   texture "empty_office"
@@ -283,7 +283,7 @@ Robot {
           ]
           endPoint Solid {
             translation 0.025 0.06 0
-            rotation 1 0 0 1.5708
+            rotation 1 8.656416461509424e-11 -8.656448258360962e-11 1.5708
             children [
               DEF WHEEL Shape {
                 appearance PBRAppearance {
@@ -314,7 +314,7 @@ Robot {
           ]
           endPoint Solid {
             translation 0.025 -0.06 0
-            rotation 1 0 0 1.5708
+            rotation 1 1.8875065996434972e-10 -1.8875135328550645e-10 1.5707999999999998
             children [
               USE WHEEL
             ]
@@ -427,8 +427,8 @@ Robot {
       ]
     }
     RobotisLds01 {
-      translation 0 5.30718e-08 0.055
-      rotation 1 0 0 3.14159
+      translation -2.65359e-08 0 0.05
+      rotation 0 1 0 3.14159
     }
   ]
   name "jetbot"
