@@ -1,0 +1,456 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/lights/protos/CeilingLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/Roughcast.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Door.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/DoorLever.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/apartment_structure/protos/Window.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/cabinet/protos/Cabinet.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/school_furniture/protos/Book.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/factory/tools/protos/Screwdriver.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/school_furniture/protos/Blackboard.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/school_furniture/protos/Clock.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/plants/protos/PottedTree.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/tables/protos/Desk.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/chairs/protos/WoodenChair.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/devices/robotis/protos/RobotisLds01.proto"
+
+WorldInfo {
+  info [
+    "JetBot basic motion performed using a C controller."
+  ]
+  title "JetBot Basic Motion"
+  basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      material1 "jetbot rear wheel"
+      coulombFriction [
+        0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.7253755314482618 0.023663624865561672 0.6879464886416482 3.096715001609494
+  position -0.01326176381122942 0.03486405102098412 0.5995381985362893
+}
+TexturedBackground {
+  texture "empty_office"
+}
+CeilingLight {
+  pointLightRadius 0.1
+  castShadows FALSE
+}
+SpotLight {
+  attenuation 0 0 1
+  beamWidth 0.7
+  cutOffAngle 0.9
+  intensity 0.8
+  location 0 -0.45 1.6
+  radius 4
+  castShadows TRUE
+}
+Floor {
+  size 5.2 4
+  tileSize 1 1
+  appearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/square_block_parquetry.jpg"
+      ]
+    }
+    roughness 1
+    metalness 0
+  }
+}
+DEF CEILING Solid {
+  translation 0 0 2.4
+  rotation 1 0 0 3.14159
+  children [
+    Shape {
+      appearance Roughcast {
+      }
+      geometry Plane {
+        size 5.2 4
+      }
+      castShadows FALSE
+    }
+  ]
+  name "ceiling"
+}
+DEF DOOR_WALL Solid {
+  translation 2.6 0.786 1.2
+  rotation 0.5773502691896258 0.5773502691896258 -0.5773502691896258 -2.0944
+  children [
+    Shape {
+      appearance DEF WALL_APPEARANCE Roughcast {
+        colorOverride 0.720668 0.883192 0.940002
+        textureTransform TextureTransform {
+          scale 5 4
+        }
+      }
+      geometry DEF DOOR_WALL_SHAPE Plane {
+        size 2.43 2.4
+      }
+      castShadows FALSE
+    }
+  ]
+  name "wall"
+  boundingObject USE DOOR_WALL_SHAPE
+}
+DEF DOOR_WALL Solid {
+  translation 2.6 -1.714 1.2
+  rotation 0.5773502691896258 -0.5773502691896258 -0.5773502691896258 2.0944
+  children [
+    Shape {
+      appearance USE WALL_APPEARANCE
+      geometry DEF DOOR_WALL_SHAPE Plane {
+        size 0.58 2.4
+      }
+      castShadows FALSE
+    }
+  ]
+  name "wall(5)"
+  boundingObject USE DOOR_WALL_SHAPE
+}
+Door {
+  translation 2.59397 -0.927 0.023
+  rotation 0 0 1 3.14159
+  size 0.001 1 2.38
+  canBeOpen FALSE
+  doorThickness 0.02
+  frameSize 0.05 0.05 0.04
+  wallAppearance USE WALL_APPEARANCE
+  doorHandle DoorLever {
+    hasStaticParent TRUE
+  }
+  castShadows FALSE
+}
+DEF BACK_WALL Solid {
+  translation -2.6 0 1.2
+  rotation 0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  children [
+    DEF WALL Shape {
+      appearance USE WALL_APPEARANCE
+      geometry Plane {
+        size 4 2.4
+      }
+      castShadows FALSE
+    }
+  ]
+  name "wall(1)"
+  boundingObject USE WALL
+}
+DEF WINDOW_WALL Solid {
+  translation -1.6 2 1.2
+  rotation 1 0 0 1.5708
+  children [
+    DEF WALL Shape {
+      appearance USE WALL_APPEARANCE
+      geometry Plane {
+        size 2.008 2.4
+      }
+      castShadows FALSE
+    }
+  ]
+  name "wall(2)"
+  boundingObject USE WALL
+}
+DEF WINDOW_WALL Solid {
+  translation 2.185 2 1.2
+  rotation 1 0 0 1.5708
+  children [
+    DEF WALL Shape {
+      appearance USE WALL_APPEARANCE
+      geometry Plane {
+        size 0.82 2.4
+      }
+      castShadows FALSE
+    }
+  ]
+  name "wall(3)"
+  boundingObject USE WALL
+}
+DEF BLACKBOARD_WALL Solid {
+  translation 0 -2 1.2
+  rotation 1 0 0 -1.57079
+  children [
+    DEF WALL Shape {
+      appearance USE WALL_APPEARANCE
+      geometry Plane {
+        size 5.2 2.4
+      }
+      castShadows FALSE
+    }
+  ]
+  name "wall(4)"
+  boundingObject USE WALL
+}
+Window {
+  translation 1.18 2.005 0
+  rotation 0 0 1 -1.57079
+  size 0.01 1.2 2.4
+  frameSize 0.00049 0.05 0.05
+  windowSillSize 0.1 0.04
+  wallAppearance USE WALL_APPEARANCE
+  castShadows FALSE
+}
+Window {
+  translation -0.02 2.005 0
+  rotation 0 0 1 -1.57079
+  name "window(1)"
+  size 0.01 1.2 2.4
+  frameSize 0.00049 0.05 0.05
+  windowSillSize 0.1 0.04
+  wallAppearance USE WALL_APPEARANCE
+  castShadows FALSE
+}
+Cabinet {
+  translation -2.59145 -1.34553 0
+  columnsWidths [
+    0.7, 0.34, 0.17
+  ]
+}
+Cabinet {
+  translation -2.59145 -0.17553 0
+  name "cabinet(1)"
+  rowsHeights [
+    1.44
+  ]
+  columnsWidths [
+    0.5, 0.5
+  ]
+  layout [
+    "RightSidedDoor (1, 1, 1, 1, 1.5)"
+    "LeftSidedDoor (2, 1,1,1, 1.5)"
+  ]
+}
+Book {
+  translation -2.20088 -1.8116 0.5
+  rotation -0.5773502691896258 0.5773502691896258 -0.5773502691896258 -2.094395
+}
+Screwdriver {
+  translation -2.20088 -1.4517 0.5
+  rotation 0 0 1 2.35619
+}
+Blackboard {
+  translation 0.117255 -1.98728 1.25
+  rotation 0 0 1 1.5708
+  castShadows FALSE
+}
+Clock {
+  translation 2.57596 0.897365 1.96
+  rotation 0 0 1 3.14159
+}
+PottedTree {
+  translation -2.03144 1.2296 0
+}
+Desk {
+  translation 1.71246 0.75833 0
+  rotation 0 0 1 1.5708
+}
+WoodenChair {
+  translation 1.76157 1.41101 0
+  rotation 0 0 1 -1.3089953071795861
+}
+WoodenChair {
+  translation 0.851899 1.43187 0
+  rotation 0 0 -1 0.523596
+  name "wooden chair(1)"
+}
+Robot {
+  translation 0 0 0.034
+  children [
+    Transform {
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.236347 0.796674 0.240131
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.135 0.095 0.035
+          }
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            axis 0 1 0
+            anchor 0.025 0.06 0
+          }
+          device [
+            RotationalMotor {
+              name "left_motor"
+            }
+          ]
+          endPoint Solid {
+            translation 0.025 0.06 0
+            rotation 1 0 0 1.5708
+            children [
+              DEF WHEEL Shape {
+                appearance PBRAppearance {
+                  baseColor 0 0 0
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.015
+                  radius 0.034
+                }
+              }
+            ]
+            boundingObject USE WHEEL
+            physics Physics {
+            }
+          }
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            axis 0 1 0
+            anchor 0.025 -0.06 0
+          }
+          device [
+            RotationalMotor {
+              name "right_motor"
+            }
+          ]
+          endPoint Solid {
+            translation 0.025 -0.06 0
+            rotation 1 0 0 1.5708
+            children [
+              USE WHEEL
+            ]
+            name "solid(1)"
+            boundingObject USE WHEEL
+            physics Physics {
+            }
+          }
+        }
+        DEF caster Solid {
+          translation 0.058 0 -0.0251
+          rotation 0 1 0 0
+          children [
+            DEF CASTER_CYL Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.011
+                radius 0.008
+              }
+            }
+            Transform {
+              translation 0 0 -0.0028
+              children [
+                DEF CASTER_BALL Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.368627 0.360784 0.392157
+                    roughness 1
+                    metalness 0
+                  }
+                  geometry Sphere {
+                    radius 0.006
+                  }
+                }
+              ]
+            }
+          ]
+          name "rear_wheel(2)"
+          contactMaterial "jetbot"
+          boundingObject Group {
+            children [
+              Transform {
+                children [
+                  USE CASTER_CYL
+                ]
+              }
+              Transform {
+                translation 0 0 -0.0028
+                children [
+                  USE CASTER_BALL
+                ]
+              }
+            ]
+          }
+          physics Physics {
+          }
+        }
+        DEF caster Solid {
+          translation -0.059 0 -0.0251
+          rotation 0 1 0 0
+          children [
+            DEF CASTER_CYL Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.011
+                radius 0.008
+              }
+            }
+            Transform {
+              translation 0 0 -0.0028
+              children [
+                DEF CASTER_BALL Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.368627 0.360784 0.392157
+                    roughness 1
+                    metalness 0
+                  }
+                  geometry Sphere {
+                    radius 0.006
+                  }
+                }
+              ]
+            }
+          ]
+          name "rear_wheel(1)"
+          contactMaterial "jetbot"
+          boundingObject Group {
+            children [
+              Transform {
+                children [
+                  USE CASTER_CYL
+                ]
+              }
+              Transform {
+                translation 0 0 -0.0028
+                children [
+                  USE CASTER_BALL
+                ]
+              }
+            ]
+          }
+          physics Physics {
+          }
+        }
+      ]
+    }
+    RobotisLds01 {
+      translation 0 0 0.035
+      rotation 0 1 0 0
+    }
+  ]
+  name "jetbot"
+  boundingObject Transform {
+    children [
+      Shape {
+        appearance PBRAppearance {
+          baseColor 0.560784 0.941176 0.643137
+          roughness 0.5
+          metalness 0.5
+        }
+        geometry Box {
+          size 0.135 0.095 0.035
+        }
+      }
+    ]
+  }
+  physics Physics {
+  }
+  controller "<extern>"
+}
