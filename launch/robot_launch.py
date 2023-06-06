@@ -26,8 +26,16 @@ def generate_launch_description():
         ]
     )
 
+    base_link_to_laser = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        output='screen',
+        arguments=['0', '0.0', '0.0', '0', '0', '0', 'base_link', 'laser'],
+        )
+
     return LaunchDescription([
         webots,
+        base_link_to_laser,
         my_robot_driver,
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
