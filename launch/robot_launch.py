@@ -9,7 +9,10 @@ from webots_ros2_driver.utils import controller_url_prefix
 
 
 def generate_launch_description():
-    package_dir = get_package_share_directory('my_jetbot_ros')
+    package_name = 'my_jetbot_ros'
+    package_dir = get_package_share_directory(package_name)
+    use_sim_time = False
+    
     robot_description = pathlib.Path(os.path.join(package_dir, 'resource', 'my_jetbot.urdf')).read_text()
 
     webots = WebotsLauncher(
@@ -25,6 +28,14 @@ def generate_launch_description():
             {'robot_description': robot_description},
         ]
     )
+    odom_estimator = Node(
+        package=package_name,
+        executable='odom_estimator',
+        output='screen',
+        parameters=[{
+            'use_sim_time': use_sim_time,
+        }],
+    )
 
     base_link_to_laser = Node(
         package='tf2_ros',
@@ -37,6 +48,7 @@ def generate_launch_description():
         webots,
         base_link_to_laser,
         my_robot_driver,
+        odom_estimator,
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
                 target_action=webots,

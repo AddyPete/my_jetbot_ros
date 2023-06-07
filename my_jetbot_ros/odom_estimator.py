@@ -1,10 +1,12 @@
-from math import sin, cos
+import math
 import rclpy
+import numpy as np
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from tf2_ros import TransformBroadcaster
+from geometry_msgs.msg import TransformStamped
 import tf_transformations
 
 # Global variables used by the node
@@ -84,8 +86,8 @@ class OdomEstimator(Node):
         # Update the robot pose
         self.theta += delta_time * self.last_twist.angular.z
         delta_distance = delta_time * self.last_twist.linear.x
-        self.x_pos += delta_distance * cos(self.theta)
-        self.y_pos += delta_distance * sin(self.theta)
+        self.x_pos += delta_distance * math.cos(self.theta)
+        self.y_pos += delta_distance * math.sin(self.theta)
         quat = tf_transformations.quaternion_from_euler(0, 0, self.theta)
 
         # Construct the odom message
@@ -110,7 +112,29 @@ class OdomEstimator(Node):
         self.odom_pub.publish(odom_msg)
         # note: where do I publish the transform !!
 
+        t = TransformStamped()
+        t.header.stamp = now_time.to_msg()
+        t.header.frame_id = ODOM_FRAME_NAME
+        t.child_frame_id = BASE_LINK_FRAME_NAME
 
+        # Turtle only exists in 2D, thus we get x and y translation
+        # coordinates from the message and set the z coordinate to 0
+        t.transform.translation.x = self.x_pos
+        t.transform.translation.y = self.y_pos
+        t.transform.translation.z = 0.0
+
+        # For the same reason, turtle can only rotate around one axis
+        # and this why we set rotation in x and y to 0 and obtain
+        # rotation in z axis from the message
+        q = tf_transformations.quaternion_from_euler(0, 0, self.last_twist.angular.z)
+        t.transform.rotation.x = q[0]
+        t.transform.rotation.y = q[1]
+        t.transform.rotation.z = q[2]
+        t.transform.rotation.w = q[3]
+
+        # Send the transformation
+        self.broadcaster.sendTransform(t)
+        
 def main() -> None:
     # Initialize the ROS System
     rclpy.init(args=None)

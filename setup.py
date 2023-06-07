@@ -21,7 +21,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'jetbot_driver = my_jetbot_ros.jetbot_driver:main'
+            'jetbot_driver = my_jetbot_ros.jetbot_driver:main',
+            'odom_estimator = my_jetbot_ros.odom_estimator:main'
         ],
     },
 )
