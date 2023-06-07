@@ -32,8 +32,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation 0.03658908367525069 -0.7085623838206293 -0.7046989337229285 6.136892053374431
-  position -0.6686182042005655 -0.17085922103561593 0.11964383798249113
+  orientation 0.031805999736263094 -0.06314639016956763 -0.9974973242015889 5.347985027882515
+  position -0.111983315323609 -0.19649941232846588 0.08096051606163382
 }
 TexturedBackground {
   texture "empty_office"
@@ -427,8 +427,8 @@ Robot {
       ]
     }
     RobotisLds01 {
-      translation -2.65359e-08 0 0.05
-      rotation 0 1 0 3.14159
+      translation 2.65359e-08 0 0.04
+      rotation 0 1 0 -5.307179586466759e-06
     }
     InertialUnit {
       name "inertial_unit"

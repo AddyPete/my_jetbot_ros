@@ -5,12 +5,12 @@
             <ros>
                 <enabled>true</enabled>
                 <updateRate>20</updateRate>
-                <topicName>/base_scan</topicName>
+                <topicName>scan</topicName>
                 <alwaysOn>false</alwaysOn>
-                <frameName>base-lds</frameName>
+                <frameName>laser</frameName>
             </ros>
         </device>
-        <plugin type="webots_ros2_driver::Ros2IMU">
+        <!-- <plugin type="webots_ros2_driver::Ros2IMU">
             <enabled>true</enabled>
             <updateRate>20</updateRate>
             <topicName>/imu</topicName>
@@ -19,7 +19,7 @@
             <inertialUnitName>inertial_unit</inertialUnitName>
             <gyroName>gyro</gyroName>
             <accelerometerName>accelerometer</accelerometerName>
-        </plugin>
+        </plugin> -->
 
         <plugin type="my_jetbot_ros.jetbot_driver.MyRobotDriver" />
     </webots>

@@ -1,0 +1,43 @@
+### ekf config file ###
+ekf_estimator:
+  ros__parameters:
+    frequency: 20.0
+    two_d_mode: true
+    map_frame: map
+    odom_frame: odom
+    base_link_frame: base_link
+    world_frame: odom
+    imu0: imu
+    imu0_config: [false, false, false,
+                    false, false, true,
+                    false, false, false,
+                    false, false, true,
+                    true, false, false],
+
+
+    # odom0_config: [true,  true,  true,
+    #             false, false, false,
+    #             false, false, false,
+    #             false, false, true,
+    #             false, false, false]
+    imu0_queue_size: 40
+    odom0: odom0
+    # imu0_config: [false, false,  false,
+    #             true,  true,  true,
+    #             false, false, false,
+    #             false, false, false,
+    #             false, false, false]
+    # listen for x, y, yaw positions, velocity in x and yaw directions
+    odom0_config: [false, false, false,
+                      false, false, true,
+                      true, true, false,
+                      false, false, true,
+                      false, false, false],
+
+    odom0_queue_size: 40
+    imu0_differential: false
+    publish_tf: true
+    use_control: false
+    control_config: [true, false, false,
+                        false, false, true]
+    debug: false

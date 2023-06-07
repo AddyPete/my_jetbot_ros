@@ -19,26 +19,26 @@ class MyRobotDriver:
         self.__right_motor.setVelocity(0)
 
         self.__target_twist = Twist()
-        self.__target_laser = LaserScan()
+        # self.__target_laser = LaserScan()
 
         rclpy.init(args=None)
         self.__node = rclpy.create_node('my_robot_driver')
         
         self.__node.create_subscription(Twist, 'cmd_vel', self.__cmd_vel_callback, 1)
-        self.__node.create_subscription(LaserScan, 'base_scan', self.__laser_scan_callback, 1)
+        # self.__node.create_subscription(LaserScan, 'base_scan', self.__laser_scan_callback, 1)
         
-        self.__laser_pub = self.__node.create_publisher(LaserScan, 'scan', 10)
+        # self.__laser_pub = self.__node.create_publisher(LaserScan, 'scan', 10)
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
 
-    def __laser_scan_callback(self, laser):
-        self.__target_laser = laser
-        self.__target_laser.header.frame_id = "laser"
-        self.__target_laser.angle_min = 0.0
-        self.__target_laser.angle_max = 2 * math.pi
-        self.__target_laser.angle_increment = -self.__target_laser.angle_increment
-        self.__target_laser.range_max = 15.0
+    # def __laser_scan_callback(self, laser):
+    #     self.__target_laser = laser
+    #     self.__target_laser.header.frame_id = "LDS-01"
+    #     self.__target_laser.angle_min = 0.0
+    #     self.__target_laser.angle_max = 2 * math.pi
+    #     self.__target_laser.angle_increment = -self.__target_laser.angle_increment
+    #     self.__target_laser.range_max = 15.0
 
     def step(self):
         rclpy.spin_once(self.__node, timeout_sec=0)
@@ -52,4 +52,4 @@ class MyRobotDriver:
         self.__left_motor.setVelocity(command_motor_left)
         self.__right_motor.setVelocity(command_motor_right)
 
-        self.__laser_pub.publish(self.__target_laser)
+        # self.__laser_pub.publish(self.__target_laser)

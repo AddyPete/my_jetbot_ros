@@ -6,6 +6,7 @@ data_files.append(('share/ament_index/resource_index/packages', ['resource/' + p
 data_files.append(('share/' + package_name + '/launch', ['launch/robot_launch.py']))
 data_files.append(('share/' + package_name + '/worlds', ['worlds/jetbot_world.wbt']))
 data_files.append(('share/' + package_name + '/resource', ['resource/my_jetbot.urdf']))
+data_files.append(('share/' + package_name + '/config', ['config/ekf_config.yaml', 'config/rviz_config.rviz']))
 data_files.append(('share/' + package_name, ['package.xml']))
 setup(
     name=package_name,

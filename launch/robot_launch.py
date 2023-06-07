@@ -52,50 +52,26 @@ def generate_launch_description():
     ekf_estimator = Node(
         package='robot_localization',
         executable='ekf_node',
+        name = 'ekf_estimator',
         output='screen',
-        parameters=[{
-            'frequency': 10.0,
-            'two_d_mode': True,
-            'map_frame': 'map',
-            'odom_frame': 'odom',
-            'base_link_frame': 'base_link',
-            'world_frame': 'odom',
-            # Use the imu node and only read the yaw, and the yaw velocity
-            'imu0': '/imu',
-            'odom0_config': [True,  True,  True,
-                        False, False, False,
-                        False, False, False,
-                        False, False, True,
-                        False, False, False],
-            'imu0_queue_size': 40,
-            # Use the estimated velocity node
-            # listen for x, y, yaw positions, velocity in x and yaw directions
-            'odom0': '/odom0',
-            'imu0_config': [False, False, False,
-                        True,  True,  True,
-                        False, False, False,
-                        False, False, False,
-                        False, False, False],
-            'odom0_queue_size': 40,
-            'imu0_differential': False,
-            'publish_tf': True,
-            # we will not listen to the velocity message so the control_config
-            # is useless
-            'use_control': False,
-            'control_config': [True, False, False,
-                               False, False, True],
-            'debug': False,
-        }],
+        parameters=[os.path.join(package_dir, 'config', 'ekf_config.yaml'), {'use_sim_time': use_sim_time}],
         remappings=[('/odometry/filtered', '/odom')]
+    )
+
+    rviz = Node(
+        package='rviz2',
+        executable='rviz2',
+        arguments=['-d', os.path.join(package_dir, 'config', 'rviz_config.rviz')]
     )
 
     return LaunchDescription([
         webots,
         base_link_to_laser,
-        base_link_to_imu,
+        rviz,
+        # base_link_to_imu,
         my_robot_driver,
-        ekf_estimator,
-        odom_estimator,
+        # ekf_estimator,
+        # odom_estimator,
         
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
