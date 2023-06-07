@@ -32,8 +32,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation 0.03366824572782599 -0.5942872882160153 -0.8035478008771261 6.142410715220471
-  position -0.6699144675886035 -0.177511950548014 0.1066956079469078
+  orientation 0.03658908367525069 -0.7085623838206293 -0.7046989337229285 6.136892053374431
+  position -0.6686182042005655 -0.17085922103561593 0.11964383798249113
 }
 TexturedBackground {
   texture "empty_office"
@@ -429,6 +429,13 @@ Robot {
     RobotisLds01 {
       translation -2.65359e-08 0 0.05
       rotation 0 1 0 3.14159
+    }
+    InertialUnit {
+      name "inertial_unit"
+    }
+    Accelerometer {
+    }
+    Gyro {
     }
   ]
   name "jetbot"

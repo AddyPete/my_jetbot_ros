@@ -1,12 +1,11 @@
 import math
 import rclpy
-import numpy as np
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
-from tf2_ros import TransformBroadcaster
-from geometry_msgs.msg import TransformStamped
+# from tf2_ros import TransformBroadcaster
+# from geometry_msgs.msg import TransformStamped
 import tf_transformations
 
 # Global variables used by the node
@@ -20,7 +19,7 @@ BASE_LINK_FRAME_NAME = 'base_link'
 RATE_HZ = 20
 
 # The estimated odometry topic name
-ODOM_TOPIC_NAME = '/odom'
+ODOM_TOPIC_NAME = '/odom0'
 
 
 class OdomEstimator(Node):
@@ -33,7 +32,7 @@ class OdomEstimator(Node):
         # The QOS profiles
         qos_profile = QoSProfile(depth=10)
         # Adding the odom tranaform boardcaster
-        self.broadcaster = TransformBroadcaster(self, qos=qos_profile)
+        # self.broadcaster = TransformBroadcaster(self, qos=qos_profile)
         # Creating the topic to publish the odometry readings
         self.odom_pub = self.create_publisher(
             Odometry, ODOM_TOPIC_NAME, qos_profile)
@@ -112,28 +111,28 @@ class OdomEstimator(Node):
         self.odom_pub.publish(odom_msg)
         # note: where do I publish the transform !!
 
-        t = TransformStamped()
-        t.header.stamp = now_time.to_msg()
-        t.header.frame_id = ODOM_FRAME_NAME
-        t.child_frame_id = BASE_LINK_FRAME_NAME
+        # t = TransformStamped()
+        # t.header.stamp = now_time.to_msg()
+        # t.header.frame_id = ODOM_FRAME_NAME
+        # t.child_frame_id = BASE_LINK_FRAME_NAME
 
-        # Turtle only exists in 2D, thus we get x and y translation
-        # coordinates from the message and set the z coordinate to 0
-        t.transform.translation.x = self.x_pos
-        t.transform.translation.y = self.y_pos
-        t.transform.translation.z = 0.0
+        # # Turtle only exists in 2D, thus we get x and y translation
+        # # coordinates from the message and set the z coordinate to 0
+        # t.transform.translation.x = self.x_pos
+        # t.transform.translation.y = self.y_pos
+        # t.transform.translation.z = 0.0
 
-        # For the same reason, turtle can only rotate around one axis
-        # and this why we set rotation in x and y to 0 and obtain
-        # rotation in z axis from the message
-        q = tf_transformations.quaternion_from_euler(0, 0, self.last_twist.angular.z)
-        t.transform.rotation.x = q[0]
-        t.transform.rotation.y = q[1]
-        t.transform.rotation.z = q[2]
-        t.transform.rotation.w = q[3]
+        # # For the same reason, turtle can only rotate around one axis
+        # # and this why we set rotation in x and y to 0 and obtain
+        # # rotation in z axis from the message
+        # q = tf_transformations.quaternion_from_euler(0, 0, self.last_twist.angular.z)
+        # t.transform.rotation.x = q[0]
+        # t.transform.rotation.y = q[1]
+        # t.transform.rotation.z = q[2]
+        # t.transform.rotation.w = q[3]
 
-        # Send the transformation
-        self.broadcaster.sendTransform(t)
+        # # Send the transformation
+        # self.broadcaster.sendTransform(t)
         
 def main() -> None:
     # Initialize the ROS System
